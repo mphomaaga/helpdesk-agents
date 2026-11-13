@@ -38,3 +38,12 @@ def get_ticket(ticket_id: int) -> Ticket:
     if ticket is None:
         raise HTTPException(status_code=404, detail="Ticket not found")
     return ticket
+
+
+@router.patch("/{ticket_id}", response_model=Ticket)
+def close_ticket(ticket_id: int) -> Ticket:
+    ticket = _tickets.get(ticket_id)
+    if ticket is None:
+        raise HTTPException(status_code=404, detail="Ticket not found")
+    ticket.status = "closed"
+    return ticket
