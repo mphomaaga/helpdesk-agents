@@ -48,5 +48,14 @@ def test_close_ticket():
     assert client.get(f"/tickets/{created['id']}").json()["status"] == "closed"
 
 
+def test_close_ticket_already_closed():
+    created = client.post("/tickets", json={"title": "D"}).json()
+    assert client.patch(f"/tickets/{created['id']}").status_code == 200
+    r = client.patch(f"/tickets/{created['id']}")
+    assert r.status_code == 200
+    assert r.json()["status"] == "closed"
+    assert client.get(f"/tickets/{created['id']}").json()["status"] == "closed"
+
+
 def test_close_ticket_missing():
     assert client.patch("/tickets/999999").status_code == 404
