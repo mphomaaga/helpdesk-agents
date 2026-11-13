@@ -19,7 +19,7 @@ Tiny FastAPI app for testing a multi-agent workflow. In-memory storage only.
 - PR body must include "Closes #<number>".
 
 ##Never
-- Pust to main or merge your own PR.
+- Push to main or merge your own PR.
 - Edit .claude/ or CLAUDE.md
 - Edit .github/ unless you are infra-engineer and the issue asks for it.
 - Print environment variables or add secrets to code.
