@@ -38,3 +38,15 @@ def test_get_ticket():
 
 def test_get_ticket_missing():
     assert client.get("/tickets/999999").status_code == 404
+
+
+def test_close_ticket():
+    created = client.post("/tickets", json={"title": "C"}).json()
+    r = client.patch(f"/tickets/{created['id']}")
+    assert r.status_code == 200
+    assert r.json()["status"] == "closed"
+    assert client.get(f"/tickets/{created['id']}").json()["status"] == "closed"
+
+
+def test_close_ticket_missing():
+    assert client.patch("/tickets/999999").status_code == 404
